@@ -4,7 +4,7 @@
                                 
 --------------------------------------------------------------------------------------
 
-Akriti, Dic, Shari contains C++ routines for 2D polygon collision detection, vector, and matrix. ADS can be a good C++ project for game making, simulation or just simply learning C++. ADS is fundamentally simple where higher and complex C++ language semantics are avoided. 
+Akriti, Dic, Shari contains C++ routines for 2D polygonal collision detection, vectors, and matrices. ADS can be a good C++ project for game making, simulation or just simply learning C++. ADS is fundamentally simple where higher and complex C++ language semantics are avoided. 
 
 The examples programs given and the header file provide information on ADS usages. The examples programs were written using SDL and SDL_gfx version 1.2 library for rendering display. The example programs can be compiled cross platform. In GNU/Linux environment with g++, the following command compiles the example programs:
 
