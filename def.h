@@ -1,6 +1,7 @@
 /*
-    Copyright (C) 2014 Md Imam Hossain
-    All rights reserved
+    Definitions for ADS libraries
+    Copyright (C) 2014 Md Imam Hossain (emamhd@gmail.com)
+    All rights reserved.
 */
 
 #ifndef _DEF_H_
@@ -12,33 +13,27 @@
 #include <cctype>
 #include <cmath>
 
-using namespace std;
-
-#define PI 3.141592
-
 struct Vector2D {
-float x, y;
+    float x, y;
 };
 
 struct Vector3D {
-float x, y, z;
+    float x, y, z;
 };
 
 typedef struct Vector2D Vec2D;
-
 typedef struct Vector3D Vec3D;
 
 // a simple dynamic object containing a number of boundary points
 class Bostu {
-public:
-Vec2D *Points;
-Vec2D Velocity;
-Vec2D Size;
-float Mass;
-unsigned long PointsN;
-Bostu ();
-~Bostu ();
-int create (unsigned long s);
+    public:
+        Vec2D *Points;
+        Vec2D Velocity;
+        float Mass;
+        unsigned long PointsN;
+        Bostu ();
+        ~Bostu ();
+        int create (unsigned long s);
 };
 
 // returns a vector by adding the vectors v1 and v2
@@ -106,12 +101,6 @@ float dvec3d_angle (Vec3D v1, Vec3D v2);
 
 // returns a unit vector of 3D vector v
 Vec3D dvec3d_unit (Vec3D v);
-
-// returns the maximum from numbers array
-float dfind_max (float *numbers, unsigned long s);
-
-// returns the minimum from numbers array
-float dfind_min (float *numbers, unsigned long s);
 
 // returns collision results from two polygons
 int acheck_polycollision (Vec2D *s1, unsigned long np1, Vec2D *s2, unsigned long np2);
