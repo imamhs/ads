@@ -5,6 +5,7 @@
 */
 
 #include "def.h"
+#include <cmath>
 
 Vec2D dvec2d_add (Vec2D v1, Vec2D v2)
 {

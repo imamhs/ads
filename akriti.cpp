@@ -6,14 +6,21 @@
 
 #include "def.h"
 
+#include <cstddef>
 #include <algorithm>
+#include <cstring>
+#include <cmath>
+#include <cfloat>
 
-int acheck_polycollision (Vec2D *s1, unsigned long np1, Vec2D *s2, unsigned long np2)
+float acheck_polycollision (Vec2D *s1, unsigned long np1, Vec2D *s2, unsigned long np2)
 {
     unsigned long vc;
     int col = 1;
+    float min_pen = FLT_MAX;
+
     for (vc = 0; vc < np1; vc++) {
         Vec2D norm;
+        float pen = 0.0;
         float mi1, mx1, mi2, mx2;
         unsigned long c;
         float *sm1 = new float[np1];
@@ -42,12 +49,15 @@ int acheck_polycollision (Vec2D *s1, unsigned long np1, Vec2D *s2, unsigned long
             delete[] sm2;
             break;
         }
+        pen = std::fminf(mx1, mx2) - std::fmaxf(mi1, mi2);
+        if (pen < min_pen) min_pen = pen;
         delete[] sm1;
         delete[] sm2;
     }
     if (col == 1) {
         for (vc = 0; vc < np2; vc++) {
             Vec2D norm;
+            float pen = 0.0;
             float mi1, mx1, mi2, mx2;
             unsigned long c;
             float *sm1 = new float[np1];
@@ -76,11 +86,16 @@ int acheck_polycollision (Vec2D *s1, unsigned long np1, Vec2D *s2, unsigned long
                 delete[] sm2;
                 break;
             }
+            pen = std::fminf(mx1, mx2) - std::fmaxf(mi1, mi2);
+            if (pen < min_pen) min_pen = pen;
             delete[] sm1;
             delete[] sm2;
         }
     }
-    return col;
+
+    if (col) return min_pen;
+
+    return 0.0;
 }
 
 int acheck_boxcollision (float b1_left, float b1_right, float b1_top, float b1_bottom, float b2_left, float b2_right, float b2_top, float b2_bottom)
@@ -88,11 +103,7 @@ int acheck_boxcollision (float b1_left, float b1_right, float b1_top, float b1_b
     return (((b1_right > b2_left) && (b1_left < b2_right)) && ((b1_bottom > b2_top) && (b1_top < b2_bottom)));
 }
 
-void acopy_shape (Vec2D *src, Vec2D *dest, unsigned long s)
+void acopy_shape (Vec2D *src, Vec2D *dst, unsigned long s)
 {
-    unsigned long vc;
-    for (vc = 0; vc < s; vc++) {
-        dest[vc].x = src[vc].x;
-        dest[vc].y = src[vc].y;
-    }
+    std::memcpy((char *)dst, (char *)src, sizeof(Vec2D)*s);
 }

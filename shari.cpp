@@ -5,6 +5,7 @@
 */
 
 #include "def.h"
+#include <cmath>
 
 void dmat2d_translate (Vec2D *shape, unsigned long np, float x, float y)
 {

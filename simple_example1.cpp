@@ -5,8 +5,13 @@
 
 #include "def.h"
 
+#include <cstdio>
+#include <cstdlib>
+
 #include <SDL.h>
 #include <SDL/SDL_gfxPrimitives.h>
+
+float c1 = 0.0, c2 = 0.0, c3 = 0.0;
 
 int m[4];
 
@@ -58,8 +63,9 @@ while (run_loop) {
         Render_Physics ();
         input_reg = SDL_GetTicks ();
     }
-    if ((SDL_GetTicks() - fps_reg) > 1000) {
-        printf ("FPS: %d\n", fps);
+    if ((SDL_GetTicks() - fps_reg) > 100) {
+        printf("FPS: %d | Shape overlaps: %2.2f | %2.2f | %2.2f\r", int(fps/0.1), c1, c2, c3);
+        fflush(stdout);
         fps = 0;
         fps_reg = SDL_GetTicks ();
     }
@@ -133,7 +139,7 @@ if (filledCircleRGBA(back_surface, WINDOW_WIDTH-40, 40, 15, collision, 0, 0, 255
 void Render_Physics (void)
 {
 
-if (m[0]) {
+    if (m[0]) {
 dmat2d_translate (t1, 3, -1, 0);
 }
 if (m[1]) {
@@ -173,7 +179,11 @@ b1[3].y = 40;
 dmat2d_scale (b1, 4, scale, scale);
 dmat2d_translate (b1, 4, 400, 200);
 
-if (acheck_polycollision (t1, 3, b1, 4) || acheck_polycollision (t1, 3, b2, 4) || acheck_polycollision (t1, 3, t2, 3)) {
+c1 = acheck_polycollision (t1, 3, b1, 4);
+c2 = acheck_polycollision (t1, 3, b2, 4);
+c3 = acheck_polycollision (t1, 3, t2, 3);
+
+if (c1 || c2 || c3 ) {
 collision = 255;
 }
 else collision = 50;

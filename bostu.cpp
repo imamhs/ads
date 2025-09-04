@@ -6,6 +6,8 @@
 
 #include "def.h"
 
+#include <cstddef>
+
 int Bostu::create (unsigned long s)
 {
     int ret = 1;
@@ -24,7 +26,10 @@ Bostu::Bostu ()
     PointsN = 0;
     Velocity.x = 0.0;
     Velocity.y = 0.0;
+    Center.x = 0.0;
+    Center.y = 0.0;
     Mass = 0.0;
+    Area = 0.0;
 }
 
 Bostu::~Bostu ()
